@@ -4,24 +4,34 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FiSmile } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { regUser } from "../services/dataServices";
+import { useHistory } from "react-router-dom";
 
-const Signup = ({setUser}) => {
+const Signup = ({updateUser}) => {
+  const history = useHistory()
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
     try{
-    console.log(data)
-    const res = await regUser(data) 
+    
+    const user={
+      firstName :data.firstname.trim(),
+     lastName :data.lastname.trim(),
+      email :data.email.trim(),
+      password :data.password.trim(),
+    }
+    console.log(user)
+    const res = await regUser(user) 
     if(res.status===200){
       console.log("registered successfully")
       const resData = await res.json()
-      setUser(resData)
-    }else{
+      updateUser(resData.user)
+      history.push("/login")
+    }else if(res.status===403){
+      alert("Email ID already registered. Please login.")
       console.log(res.status,res)
     }}catch(e){
       console.log("signup page",e)
     }
-  
   }
 
   return (

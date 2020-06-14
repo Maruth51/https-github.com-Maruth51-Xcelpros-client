@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FiSmile } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { loginUser } from '../services/dataServices';
+import { useHistory } from 'react-router-dom';
 
 
 const Login = ({updateUser ,user}) => {
+   const [isloginSucces, setLoginState] =useState(false)
+   const [submit, setsubmit] = useState(false)
+   const history = useHistory()
     const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
       try{
       console.log(data)
+      
       const res = await loginUser(data.email.trim(),data.password.trim())
+      setsubmit(true)
       if(res.status === 200){
+        setLoginState(true)
           //success
           const resData = await res.json()
-         window.localStorage.setItem("token",resData.token)
-         window.localStorage.setItem("user",resData.user)
+         localStorage.setItem("token",resData.token)
+         localStorage.setItem("userData",resData.user)
           updateUser(resData.user)
           console.log("resdata",user)
+          history.push("/")
 
       }else if(res.status ===401){
+        setLoginState(false)
           console.log("unauthorized")
       }
     }catch(e){
+      setsubmit(false)
+      alert("network error")
         console.log(e)
 
     }}
@@ -33,7 +44,7 @@ const Login = ({updateUser ,user}) => {
         <Container fluid>
           <Row >
             <Col md={6} className="p-0 col-img">
-              <img src="login.jpg" className="image"></img>
+              <img src="login.jpg"alt='login' className="image"></img>
             </Col>
             <Col md={6} className="container-signup" >
               <Container className="content">
@@ -108,6 +119,7 @@ const Login = ({updateUser ,user}) => {
                   </Row>
                   <Row>
                     <Col>
+                    {!isloginSucces && (submit && <div className="alert alert-danger" role="alert"> Incorrect email or password</div>)}
                       <Button type="submit" variant="success" className="submit-button" block>
                         {" "}
                         Join our community

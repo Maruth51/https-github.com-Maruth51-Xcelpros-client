@@ -1,9 +1,6 @@
 const initialState = {
     isLoggedIn : localStorage.getItem("token") ? true : false,
-    user: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : {}
+    user: {}
   };
-  
   export default initialState;
   

@@ -1,10 +1,12 @@
-const { default: initialState } = require("./initialState");
+const { initialState } = require("./initialState");
 const { LOG_OUT, LOG_IN, SET_USER } = require("./action");
 
 const reducer = (prevState = initialState, action) => {
   switch (action.type) {
     case LOG_OUT:
-      return { ...prevState, isLoggedIn: false };
+      localStorage.removeItem("token")
+      localStorage.removeItem("userData")
+      return {isLoggedIn: false, user:{} };
 
     case LOG_IN:
       return { ...prevState, isLoggedIn: true };

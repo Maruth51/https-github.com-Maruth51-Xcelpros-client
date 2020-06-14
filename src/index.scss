@@ -1,49 +1,62 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.image{
-    width: 100%;
-    height: 100vh;
-    object-fit: fill;
-  }
+.image {
+  width: 100%;
+  height: 100vh;
+  object-fit: fill;
+}
 
+.nav-item {
+  text-decoration: none;
+  margin: 0px 5px;
+  padding: 2px;
+  border-radius: 1px;
+  color: rgb(41, 37, 37);
+}
+.nav-active {
+  transform: scale(1.1);
+  color: #2300ec;
+}
 
-.container-signup{
+.container-signup {
   display: flex;
   font-size: small;
   align-items: center;
   justify-content: center;
 
-  & .content{
+  & .content {
     width: 70%;
   }
-  & .form-group{
+  & .form-group {
     margin: 15px 0px;
   }
 
-  &  .head{
+  & .head {
     display: flex;
     margin: 10px 0px;
     flex-direction: column;
     text-align: center;
-    & .title{
+    & .title {
       color: rgba(56, 42, 255, 0.986);
       font-weight: bold;
-        }
+    }
   }
-  & .form-label{
+  & .form-label {
     color: rgb(129, 129, 129);
     width: 100%;
   }
@@ -51,18 +64,75 @@ code {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    & .label-name{
+    & .label-name {
       display: inline;
       word-wrap: none;
     }
-    & .error-msg{
+    & .error-msg {
       color: red;
       margin-left: 5px;
     }
-
   }
-  & .submit-button{
+  & .submit-button {
     background-color: green($color: #000000);
     margin: 15px 0px;
+  }
+}
+
+.user-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  width: 225px;
+  text-align: center;
+  justify-content: center;
+  margin: 25px;
+  padding: 1px;
+  border-radius: 15px;
+
+  & .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+  & .user-email,
+  .user-phone,
+  .card-head {
+    margin: 1px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    color: rgb(0, 0, 0);
+  }
+  & .user-name {
+    margin-top: 5px;
+    margin-bottom: 1px;
+    font-weight: bolder;
+  }
+  & .user-desig {
+    font-size: small;
+  }
+  & .in-name {
+    color: black;
+    margin: 5px 0px;
+    width: 50%;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid rgb(255, 0, 0);
+  }
+}
+.user-container {
+  display: flex;
+  margin: 2%;
+  & .user-card {
   }
 }

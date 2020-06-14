@@ -22,7 +22,7 @@ export const loginUser = async (email, pwd) => {
   }
 };
 
-export const regUser =async (user)=>{
+export const regUser = async (user)=>{
   try{
     const data = {
       ...user
@@ -38,7 +38,7 @@ export const regUser =async (user)=>{
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch("http://127.0.0.1:5000/signin", config);
+    const response = await fetch("http://127.0.0.1:5000/signup", config);
       return response
 
   }catch(e){
@@ -48,3 +48,22 @@ export const regUser =async (user)=>{
   }
 
 }
+
+export const getUsers = async () => {
+  try {
+    const config = {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    };
+    const response = await fetch("http://127.0.0.1:5000/users", config);
+      return await response.json()
+  } catch (e) {
+      console.error(e)
+  }
+};
