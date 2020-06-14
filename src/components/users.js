@@ -1,7 +1,7 @@
 import React, { useState, Fragment ,useEffect} from 'react'
-import { Card, Container } from 'react-bootstrap';
+import {  Container } from 'react-bootstrap';
 import {FiMail , FiPhone} from "react-icons/fi"
-import { getUsers } from '../services/dataServices';
+import { getUsers, putUser, deleteUser } from '../services/dataServices';
 
 const UserList =()=>{
     const [users, setUsers] = useState([])
@@ -15,15 +15,35 @@ const UserList =()=>{
     },[]);
     const updateUser =(newUser)=>{
         console.log(newUser)
-        setUsers(users.map((user,index)=>{
-            if (user.id === newUser.id){
-                return newUser
-            }
-            else{
-                return user
-            }
+        putUser(newUser).then(data=>{
+            console.log("update success")
+            setUsers(users.map((user,index)=>{
+                if (user.id === newUser.id){
+                    return newUser
+                }
+                else{
+                    return user
+                }
+    
+            }))
+        }).catch(err=>{
+            alert("Network error. Update unsuccessfull")
+        })
+    }
+    const removeUser =(userId)=>{
+        deleteUser(userId).then(data=>{
+            setUsers( users.filter((user,index)=>{
+                if(userId===user.id){
+                    return false
+                }else{
+                    return true
+                }
+            })) 
 
-        }))
+        }).catch(e=>{
+            alert("Delete Unsuccessfull.")
+        })
+        
     }
     return(
 
@@ -31,7 +51,7 @@ const UserList =()=>{
             <Container className="user-container" fluid>
              {users.map((user,index)=>{
 
-                return (<User key ={user.id} user={user} onSave={updateUser}/>)
+                return (<User key ={user.id} user={user} onSave={updateUser} onDelete={removeUser}/>)
              })}
              </Container>
         </Fragment>
@@ -40,7 +60,7 @@ const UserList =()=>{
 }
 
 
-const User = ({user ,onSave}) => {
+const User = ({user ,onSave ,onDelete}) => {
     const [edit, setEdit] = useState(false)
     const [name, setName] = useState(user.firstName)
     const [desig, setDesig] = useState(user.designation)
@@ -50,9 +70,12 @@ const User = ({user ,onSave}) => {
         onSave({...user,firstName:name,designation:desig,phone:phone})
         setEdit(false)
     }
+    const handleDelete =()=>[
+        onDelete(user.id)
+    ]
     return (
         <div className="user-card">
-         <div className="card-head">{edit ?    <Fragment><span onClick={handleSave}>Save</span><span onClick={()=>{setEdit(false)}}>Cancel</span></Fragment>:<Fragment><span><span onClick={()=>{setEdit(!edit)}}>Edit</span><span>delete</span></span></Fragment>}</div>
+         <div className="card-head">{edit ?    <Fragment><span className="btn btn-sm" onClick={handleSave}>Save</span><span className="btn btn-sm" onClick={()=>{setEdit(false)}}>Cancel</span></Fragment>:<Fragment><span><span className="btn btn-sm" onClick={()=>{setEdit(!edit)}}>Edit</span><span onClick={handleDelete} className="btn btn-sm">Delete</span></span></Fragment>}</div>
          <div className="card-img">
              <img className="avatar" alt="userimage" src={user.avatar}></img>
          </div>
