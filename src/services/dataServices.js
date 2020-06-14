@@ -15,7 +15,7 @@ export const loginUser = async (email, pwd) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch("http://127.0.0.1:5000/login", config);
+    const response = await fetch("https://xcelpros-server.herokuapp.com/login", config);
       return response
   } catch (e) {
       console.error(e)
@@ -38,7 +38,7 @@ export const regUser = async (user)=>{
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch("http://127.0.0.1:5000/signup", config);
+    const response = await fetch("https://xcelpros-server.herokuapp.com/signup", config);
       return response
 
   }catch(e){
@@ -61,7 +61,7 @@ export const getUsers = async () => {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
     };
-    const response = await fetch("http://127.0.0.1:5000/users", config);
+    const response = await fetch("https://xcelpros-server.herokuapp.com/users", config);
       return await response.json()
   } catch (e) {
       console.error(e)
@@ -84,7 +84,7 @@ export const putUser = async (user)=>{
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch(`http://127.0.0.1:5000/user/${user.id}`, config);
+    const response = await fetch(`https://xcelpros-server.herokuapp.com/user/${user.id}`, config);
     if (response.status===403){
       alert("Please Login to Delete")
     }
@@ -109,7 +109,7 @@ export const deleteUser = async (userId)=>{
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
         };
-    const response = await fetch(`http://127.0.0.1:5000/user/${userId}`, config);
+    const response = await fetch(`https://xcelpros-server.herokuapp.com/user/${userId}`, config);
     if (response.status===403){
       alert("Please Login to Delete")
     }
