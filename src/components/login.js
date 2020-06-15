@@ -25,17 +25,14 @@ const Login = ({updateUser ,user}) => {
          localStorage.setItem("token",resData.token)
          localStorage.setItem("userData",resData.user)
           updateUser(resData.user)
-          console.log("resdata",user)
           history.push("/")
 
       }else if(res.status ===401){
         setLoginState(false)
-          console.log("unauthorized")
       }
     }catch(e){
       setsubmit(false)
       alert("network error")
-        console.log(e)
 
     }}
 

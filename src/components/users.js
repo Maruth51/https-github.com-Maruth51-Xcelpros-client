@@ -1,14 +1,19 @@
 import React, { useState, Fragment ,useEffect} from 'react'
-import {  Container } from 'react-bootstrap';
+import {  Container, Spinner } from 'react-bootstrap';
 import {FiMail , FiPhone} from "react-icons/fi"
 import { getUsers, putUser, deleteUser } from '../services/dataServices';
 
+const spinner =<div className='spinner'><Spinner animation="border" role="status" varient="primary">
+    <span className="sr-only">Loading...</span>
+  </Spinner></div>
+
 const UserList =()=>{
     const [users, setUsers] = useState([])
+    const [isLoading, setisLoading] = useState(true)
     useEffect(() => {
         getUsers().then(res =>{
             setUsers(res.users)
-            console.log(users)
+            setisLoading(false)
         }).catch(err=>{
             alert("network error")
         })        
@@ -46,14 +51,16 @@ const UserList =()=>{
         
     }
     return(
+        
 
         <Fragment>
+            {isLoading ? spinner :
             <Container className="user-container" fluid>
              {users.map((user,index)=>{
 
                 return (<User key ={user.id} user={user} onSave={updateUser} onDelete={removeUser}/>)
              })}
-             </Container>
+             </Container> }
         </Fragment>
 
     )
@@ -65,7 +72,7 @@ const User = ({user ,onSave ,onDelete}) => {
     const [name, setName] = useState(user.firstName)
     const [desig, setDesig] = useState(user.designation)
     const [phone, setPhone] = useState(user.phone)
-    const [email, setEmail] = useState(user.email)
+    const [email ,setEmail] = useState(user.email)
     const handleSave =()=>{
         onSave({...user,firstName:name,designation:desig,phone:phone})
         setEdit(false)

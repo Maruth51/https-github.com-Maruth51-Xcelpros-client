@@ -22,15 +22,16 @@ const Signup = ({updateUser}) => {
     console.log(user)
     const res = await regUser(user) 
     if(res.status===200){
-      console.log("registered successfully")
+      // console.log("registered successfully")
       const resData = await res.json()
       updateUser(resData.user)
       history.push("/login")
     }else if(res.status===403){
       alert("Email ID already registered. Please login.")
-      console.log(res.status,res)
+      // console.log(res.status,res)
     }}catch(e){
-      console.log("signup page",e)
+      alert("signup Unsuccessful")
+      //console.log("signup page",e)
     }
   }
 
