@@ -1,4 +1,7 @@
 applications:
 - name: GetStartedNode
+  path: build
   random-route: true
-  memory: 128M
+  memory: 256M
+  buildpacks: 
+  - https://github.com/cloudfoundry/staticfile-buildpack.git
