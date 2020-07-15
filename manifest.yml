@@ -2,6 +2,5 @@ applications:
 - name: XcelprosDus
   path: build
   random-route: true
-  memory: 256M
-  buildpacks: 
-  - https://github.com/cloudfoundry/staticfile-buildpack.git#v1.4.43
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  memory: 64M
